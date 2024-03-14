@@ -11,6 +11,7 @@ Remove `sed` lines to use as a build process for vanilla circuitpython.
 ```bash
 docker rm -f circuitpython
 docker build -t circuitpython .
-docker cp circuitpython:/firmware/firmware.bin .
+docker run --name circuitpython circuitpython
+docker cp circuitpython:/firmware/circuitpython-firmware.bin .
 docker rm circuitpython
 ```

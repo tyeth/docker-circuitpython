@@ -54,6 +54,7 @@ RUN  \
 WORKDIR /
 RUN \
   mkdir -v /firmware \
-  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/firmware.bin /firmware/firmware.bin
+  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/firmware.bin /firmware/firmware.bin \
+  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/circuitpython-firmware.bin /firmware/circuitpython-firmware.bin
 
 CMD ["/bin/bash"]
