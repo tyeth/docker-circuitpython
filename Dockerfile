@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-ARG CIRCUITPYTHON_VERSION="9.0.0-rc.0"
+ARG CIRCUITPYTHON_VERSION="9.0.0-rc.1"
 ARG PORT="espressif"
 ARG BOARD="adafruit_feather_esp32_v2"
 
@@ -26,9 +26,13 @@ RUN \
 RUN git clone https://github.com/adafruit/circuitpython.git
 
 WORKDIR /circuitpython
+
 RUN \
-  git checkout "${CIRCUITPYTHON_VERSION}" \
-  && sed -i '/#define CIRCUITPY_DISPLAY_LIMIT (1)/s/(1)/(5)/' py/circuitpy_mpconfig.h
+  git checkout "${CIRCUITPYTHON_VERSION}"
+
+# Remove this line to limit number of displays to 1!
+RUN \
+  sed -i '/#define CIRCUITPY_DISPLAY_LIMIT (1)/s/(1)/(5)/' py/circuitpy_mpconfig.h
 
 RUN \
   python -m venv venv \
