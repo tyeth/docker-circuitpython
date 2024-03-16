@@ -51,9 +51,9 @@ RUN  \
 WORKDIR /
 RUN \
   mkdir -v /firmware \
-  && tree /circuitpython/ports/${PORT}/build-${BOARD}/
+  && tree /circuitpython/ports/${PORT}/build-${BOARD}/ \
   && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/firmware.bin /firmware/firmware.bin \
-  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/circuitpython-firmware.bin /firmware/circuitpython-firmware.bin
+  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/circuitpython-firmware.bin /firmware/circuitpython-firmware.bin \
   && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/*.uf2 /firmware/circuitpython-firmware.uf2
 
 CMD ["/bin/bash"]
