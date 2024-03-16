@@ -48,7 +48,7 @@ RUN if [ "${PORT}" = "espressif" ]; then \
 
 # Conditional import for espressif
 RUN if [ "${PORT}" = "espressif" ]; then \
-      . ../espressif/esp-idf/export.sh \
+      . ../espressif/esp-idf/export.sh
     fi
 
 RUN make BOARD="${BOARD}"
