@@ -39,13 +39,13 @@ WORKDIR "/circuitpython/ports/${PORT}"
 RUN make fetch-port-submodules
 
 RUN \
-  esp-idf/install.sh \
-  && . esp-idf/export.sh \
+  ../espressif/esp-idf/install.sh \
+  && . ../espressif/esp-idf/export.sh \
   && pip install --no-cache-dir -r ../../requirements-dev.txt -r ../../requirements-doc.txt \
-  && esp-idf/tools/idf_tools.py install
+  && ../espressif/esp-idf/tools/idf_tools.py install
 
 RUN  \
-  . esp-idf/export.sh \
+  . ../espressif/esp-idf/export.sh \
   && make BOARD="${BOARD}"
 
 WORKDIR /
