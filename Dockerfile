@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 ARG CIRCUITPYTHON_VERSION="9.0.0-rc.1"
-ARG PORT="espressif"
+ARG PORT="atmel-samd"
 ARG BOARD="pyportal_titano"
 
 SHELL ["/bin/bash", "-c"]
