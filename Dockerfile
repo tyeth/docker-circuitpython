@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 
 ARG CIRCUITPYTHON_VERSION="9.0.0-rc.1"
 ARG PORT="espressif"
-ARG BOARD="adafruit_feather_esp32_v2"
+ARG BOARD="pyportal_titano"
 
 SHELL ["/bin/bash", "-c"]
 
