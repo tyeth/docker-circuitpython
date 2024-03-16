@@ -46,12 +46,16 @@ RUN if [ "${PORT}" = "espressif" ]; then \
       && ../espressif/esp-idf/tools/idf_tools.py install; \
     fi
 
+
 # Conditional import for espressif
 RUN if [ "${PORT}" = "espressif" ]; then \
-      . ../espressif/esp-idf/export.sh
+      echo "Doing ESP-IDF specific tasks"; \
+      . ../espressif/esp-idf/export.sh && \
+      make BOARD="${BOARD}"; \
+    else \
+      echo "Doing non-ESP-IDF tasks"; \
+      make BOARD="${BOARD}"
     fi
-
-RUN make BOARD="${BOARD}"
 
 WORKDIR /
 RUN \
