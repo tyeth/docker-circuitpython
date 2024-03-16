@@ -38,22 +38,27 @@ WORKDIR "/circuitpython/ports/${PORT}"
 
 RUN make fetch-port-submodules
 
-RUN \
-  ../espressif/esp-idf/install.sh \
-  && . ../espressif/esp-idf/export.sh \
-  && pip install --no-cache-dir -r ../../requirements-dev.txt -r ../../requirements-doc.txt \
-  && ../espressif/esp-idf/tools/idf_tools.py install
+# Conditional execution for espressif specific steps
+RUN if [ "${PORT}" = "espressif" ]; then \
+      ../espressif/esp-idf/install.sh \
+      && . ../espressif/esp-idf/export.sh \
+      && pip install --no-cache-dir -r ../../requirements-dev.txt -r ../../requirements-doc.txt \
+      && ../espressif/esp-idf/tools/idf_tools.py install; \
+    fi
 
-RUN  \
-  . ../espressif/esp-idf/export.sh \
-  && make BOARD="${BOARD}"
+# Conditional import for espressif
+RUN if [ "${PORT}" = "espressif" ]; then \
+      . ../espressif/esp-idf/export.sh \
+    fi
+
+RUN make BOARD="${BOARD}"
 
 WORKDIR /
 RUN \
-  mkdir -v /firmware \
-  && tree /circuitpython/ports/${PORT}/build-${BOARD}/ \
-  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/firmware.bin /firmware/firmware.bin \
-  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/circuitpython-firmware.bin /firmware/circuitpython-firmware.bin \
-  && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/*.uf2 /firmware/circuitpython-firmware.uf2
+    mkdir -v /firmware \
+    && tree /circuitpython/ports/${PORT}/build-${BOARD}/ \
+    && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/firmware.bin /firmware/firmware.bin \
+    && cp -v /circuitpython/ports/${PORT}/build-${BOARD}/circuitpython-firmware.bin /firmware/circuitpython-firmware.bin; \
+    find /circuitpython/ports/${PORT}/build-${BOARD}/ -name '*.uf2' -exec cp -v {} /firmware/ \; || true;
 
 CMD ["/bin/bash"]
