@@ -54,7 +54,7 @@ RUN if [ "${PORT}" = "espressif" ]; then \
       make BOARD="${BOARD}"; \
     else \
       echo "Doing non-ESP-IDF tasks"; \
-      make BOARD="${BOARD}"
+      make BOARD="${BOARD}" ; \
     fi
 
 WORKDIR /
