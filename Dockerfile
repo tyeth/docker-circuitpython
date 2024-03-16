@@ -9,14 +9,7 @@ SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get update -y \
-  && apt-get install -y wget \
-  && wget -O netselect.deb http://http.us.debian.org/debian/pool/main/n/netselect/netselect_0.3.ds1-28+b1_`dpkg --print-architecture`.deb \
-  && dpkg -i netselect.deb \
-  && rm netselect.deb \
-  && sed -r -i -e "s#http://(archive|security)\.ubuntu\.com/ubuntu/?#$(netselect -v -s1 -t20 `wget -q -O- https://launchpad.net/ubuntu/+archivemirrors \
-  | grep -P -B8 "statusUP|statusSIX" \
-  | grep -o -P "http://[^\"]*"` \
-  | grep -P -o 'http://.+$')#g" /etc/apt/sources.list
+  && apt-get install -y wget
 
 RUN \
   apt-get install -y build-essential pkg-config libffi-dev wget \
